@@ -2,8 +2,8 @@ Ceci est un projet portfolio qui a pour but de créer une messagerie en utilisan
 
 architecture de dossier :
 
-messagerie-app/
-├── src/
+messagerie-app/\n
+├── src/\n
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── com/messagerie/
