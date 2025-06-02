@@ -4,7 +4,8 @@ architecture de dossier :
 
 messagerie-app/
 
-├── src
+├── src/
+
 │   ├── main/
 
 │   │   ├── java/
