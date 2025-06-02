@@ -2,19 +2,32 @@ Ceci est un projet portfolio qui a pour but de créer une messagerie en utilisan
 
 architecture de dossier :
 
-messagerie-app/\n
-├── src/\n
+messagerie-app/
+
+├── src/
+
 │   ├── main/
+
 │   │   ├── java/
+
 │   │   │   └── com/messagerie/
+
 │   │   │       ├── controller/    → Gère les requêtes HTTP (@RestController)
+
 │   │   │       ├── model/         → Entités JPA (@Entity)
+
 │   │   │       ├── repository/    → Interfaces JPA pour la BDD
+
 │   │   │       ├── service/       → Logique métier
+
 │   │   │       └── dto/           → Objets de transfert (DTOs)
+
 │   │   └── resources/
+
 │   │       ├── application.properties
+
 │   └── test/                      → Tests unitaires
+
 ├── pom.xml                        → Fichier de configuration Maven
 
 
