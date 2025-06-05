@@ -1,0 +1,3 @@
+com/messagerie/model/User.class
+com/messagerie/repository/UserRepository.class
+com/messagerie/MessagerieAppApplication.class
