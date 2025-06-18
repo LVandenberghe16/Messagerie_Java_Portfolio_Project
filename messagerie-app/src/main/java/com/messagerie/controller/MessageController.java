@@ -35,7 +35,7 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<Message> sendMessage(@RequestBody MessageDTO messageDTO) {
         Optional<User> sender = userService.findById(messageDTO.getSenderId());
-        Optional<Channel> channel = Optional.ofNullable(channelService.getChannelById(messageDTO.getChannelId()));
+        Optional<Channel> channel =channelService.getChannelById(messageDTO.getChannelId());
 
         if (sender.isEmpty() || channel.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -54,7 +54,7 @@ public class MessageController {
     // GET - Récupérer tous les messages d'un channel
     @GetMapping("/channel/{channelId}")
     public ResponseEntity<List<Message>> getMessagesByChannel(@PathVariable Long channelId) {
-        Optional<Channel> channel = Optional.ofNullable(channelService.getChannelById(channelId));
+        Optional<Channel> channel = channelService.getChannelById(channelId);
         if (channel.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

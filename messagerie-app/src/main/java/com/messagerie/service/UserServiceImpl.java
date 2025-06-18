@@ -1,54 +1,73 @@
 package com.messagerie.service;
 
-import com.messagerie.model.Channel;
+import com.messagerie.dto.UserDTO;
 import com.messagerie.model.User;
-import com.messagerie.repository.ChannelRepository;
+import com.messagerie.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class ChannelServiceImpl implements ChannelService {
+public class UserServiceImpl implements UserService {
 
-    private final ChannelRepository channelRepo;
+    private final UserRepository userRepository;
 
     @Autowired
-    public ChannelServiceImpl(ChannelRepository channelRepo) {
-        this.channelRepo = channelRepo;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public Channel createChannel(Channel channel) {
-        return channelRepo.save(channel);
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(UserDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Channel getChannelById(Long id) {
-        return channelRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Channel not found with id: " + id));
+    public UserDTO createUser(UserDTO userDTO) {
+        User user = userDTO.toEntity();
+        // Ici tu peux ajouter une gestion de mot de passe, hashage etc.
+        User savedUser = userRepository.save(user);
+        return UserDTO.fromEntity(savedUser);
     }
 
     @Override
-    public List<Channel> getAllChannels() {
-        return channelRepo.findAll();
-    }
-
-    @Override
-    public void deleteChannel(Long id) {
-        if (channelRepo.existsById(id)) {
-            channelRepo.deleteById(id);
-        } else {
-            throw new RuntimeException("No channel exists with id: " + id);
+    public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("User not found with id: " + id);
         }
+        userRepository.deleteById(id);
     }
 
     @Override
-    public Optional<Channel> getPrivateChannelBetweenUsers(User user1, User user2) {
-        return channelRepo.findAll().stream()
-                .filter(Channel::getIsPrivate)
-                .filter(channel -> channel.getMembers().contains(user1) && channel.getMembers().contains(user2))
-                .findFirst();
+    public Optional<UserDTO> findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .map(UserDTO::fromEntity);
+    }
+
+    @Override
+    public Optional<UserDTO> findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(UserDTO::fromEntity);
+    }
+
+    @Override
+    public Optional<User> findUserEntityById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public Optional<User> findUserEntityByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 }

@@ -36,8 +36,11 @@ public class ChannelController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ChannelDTO> getChannelById(@PathVariable Long id) {
-        Channel channel = channelService.getChannelById(id);
-        return ResponseEntity.ok(convertToDTO(channel));
+        Optional<Channel> channelOpt = channelService.getChannelById(id);
+        if (channelOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(convertToDTO(channelOpt.get()));
     }
 
     @PostMapping
@@ -58,8 +61,8 @@ public class ChannelController {
             @PathVariable String username1,
             @PathVariable String username2) {
 
-        Optional<User> user1 = userService.findByUsername(username1);
-        Optional<User> user2 = userService.findByUsername(username2);
+        Optional<User> user1 = userService.findUserEntityByUsername(username1);
+        Optional<User> user2 = userService.findUserEntityByUsername(username2);
 
         if (user1.isEmpty() || user2.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -78,7 +81,7 @@ public class ChannelController {
 
         if (dto.getMemberIds() != null) {
             Set<User> members = dto.getMemberIds().stream()
-                    .map(userService::findById)
+                    .map(userService::findUserEntityById)
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .collect(Collectors.toSet());

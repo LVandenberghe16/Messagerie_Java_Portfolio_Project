@@ -12,8 +12,8 @@ echo -e "\nCréation du channel général..."
 
 curl -s -X POST "$BASE_URL/channels" -H "Content-Type: application/json" -d '{
   "name": "general",
-  "private": false,
-  "membersIds": [1,2]
+  "isPrivate": false,
+  "memberIds": [1,2]
 }' | jq .
 
 echo -e "\nEnvoi d'un message..."

@@ -11,10 +11,13 @@
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/service/MessageService.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/MessagerieAppApplication.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/controller/ChannelController.java
+/mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/config/WebSocketConfig.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/dto/MessageDTO.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/service/ChannelService.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/model/Channel.java
+/mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/controller/ChatController.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/service/UserServiceImpl.java
+/mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/websocket/ChatWebSocketController.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/repository/ChannelRepository.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/dto/ChannelDTO.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/model/User.java

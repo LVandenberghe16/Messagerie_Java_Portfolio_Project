@@ -1,9 +1,9 @@
 package com.messagerie.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Message {
@@ -16,12 +16,12 @@ public class Message {
 
     private LocalDateTime timestamp;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")
     @JsonBackReference(value = "user-messages")
     private User sender;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "channel_id")
     @JsonBackReference(value = "channel-messages")
     private Channel channel;
@@ -32,12 +32,21 @@ public class Message {
         this.content = content;
         this.sender = sender;
         this.channel = channel;
-        this.timestamp = LocalDateTime.now(); // Timestamp au moment de l'envoi
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.timestamp = LocalDateTime.now();
     }
 
     // Getters & setters
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getContent() {

@@ -26,9 +26,8 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public Channel getChannelById(Long id) {
-        return channelRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Channel not found with id: " + id));
+    public Optional<Channel> getChannelById(Long id) {
+        return channelRepo.findById(id);
     }
 
     @Override

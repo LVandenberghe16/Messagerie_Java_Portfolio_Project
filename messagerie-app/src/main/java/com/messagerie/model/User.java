@@ -61,6 +61,10 @@ public class User {
         return id;
     }
 
+    public void setID(Long id) {
+        this.id = id;
+    }
+
     public Set<Channel> getChannels() {
         return channels;
     }
