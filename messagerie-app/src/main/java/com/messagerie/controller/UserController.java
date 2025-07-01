@@ -1,7 +1,11 @@
 package com.messagerie.controller;
 
+import com.messagerie.dto.LoginDTO;
 import com.messagerie.dto.UserDTO;
+import com.messagerie.dto.UserRegistrationDTO;
 import com.messagerie.service.UserService;
+import com.messagerie.model.User;
+import com.messagerie.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +15,16 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -49,5 +55,22 @@ public class UserController {
         return userService.findByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    }
+
+    @PostMapping("/register")
+    public UserDTO register(@RequestBody UserRegistrationDTO dto) {
+        User user = new User();
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword()); // 🔒 Tu peux hasher ici si tu veux
+        user = userRepository.save(user);
+        return UserDTO.fromEntity(user); // ✅ renvoie un UserDTO sécurisé
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserDTO> login(@RequestBody LoginDTO loginDTO) {
+        return userService.authenticate(loginDTO.getEmail(), loginDTO.getPassword())
+                .map(user -> ResponseEntity.ok(UserDTO.fromEntity(user)))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
     }
 }

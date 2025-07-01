@@ -1,6 +1,7 @@
 package com.messagerie.controller;
 
 import com.messagerie.dto.MessageDTO;
+import com.messagerie.dto.MessageResponseDTO;
 import com.messagerie.model.Channel;
 import com.messagerie.model.Message;
 import com.messagerie.model.User;
@@ -23,9 +24,9 @@ public class ChatController {
     @Autowired
     private ChannelRepository channelRepository;
 
-    @MessageMapping("/chat") // Correspond à "/app/chat"
+    @MessageMapping("/chat")
     @SendTo("/topic/messages")
-    public Message handleMessage(MessageDTO dto) {
+    public MessageResponseDTO handleMessage(MessageDTO dto) {
         User sender = userRepository.findById(dto.getSenderId()).orElse(null);
         Channel channel = channelRepository.findById(dto.getChannelId()).orElse(null);
 
@@ -36,7 +37,8 @@ public class ChatController {
         Message message = new Message(dto.getContent(), sender, channel);
         message.setTimestamp(LocalDateTime.now());
 
-        // Si tu veux persister en base : messageRepository.save(message);
-        return message;
+        // messageRepository.save(message); // si tu veux sauvegarder
+
+        return new MessageResponseDTO(message.getContent(), sender.getUsername(), message.getTimestamp());
     }
 }

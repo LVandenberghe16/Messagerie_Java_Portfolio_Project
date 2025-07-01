@@ -1,11 +1,13 @@
 package com.messagerie.service;
 
 import com.messagerie.dto.UserDTO;
+import com.messagerie.dto.UserRegistrationDTO;
 import com.messagerie.model.User;
 
 
 import java.util.List;
 import java.util.Optional;
+
 
 public interface UserService {
 
@@ -17,4 +19,6 @@ public interface UserService {
     Optional<User> findUserEntityById(Long id);
     Optional<User> findUserEntityByUsername(String username);
     Optional<User> findById(Long id);
+    Optional<User> authenticate(String email, String password);
+    UserDTO register(UserRegistrationDTO dto);
 }

@@ -1,6 +1,7 @@
 package com.messagerie.service;
 
 import com.messagerie.dto.UserDTO;
+import com.messagerie.dto.UserRegistrationDTO;
 import com.messagerie.model.User;
 import com.messagerie.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,4 +71,29 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public Optional<User> authenticate(String email, String password) {
+        return userRepository.findByEmail(email)
+                .filter(user -> user.getPassword().equals(password));  // à sécuriser plus tard !
+    }
+
+    @Override
+    public UserDTO register(UserRegistrationDTO dto) {
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email déjà utilisé");
+        }
+        if (userRepository.findByUsername(dto.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("Nom d'utilisateur déjà utilisé");
+        }
+
+        User user = new User();
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword()); // => Pense à hasher le mdp ici pour la prod !
+
+        User savedUser = userRepository.save(user);
+        return UserDTO.fromEntity(savedUser);
+    }
+
 }

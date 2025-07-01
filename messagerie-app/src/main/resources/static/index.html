@@ -47,7 +47,7 @@
     stompClient.subscribe('/topic/messages', message => {
       const data = JSON.parse(message.body);
       // Ici, adapte selon la structure reçue
-      let senderName = data.sender?.username || 'Inconnu';
+      let senderName = data.senderUsername || 'Inconnu';
       addMessage(`${senderName}: ${data.content}`);
     });
   });
