@@ -1,5 +1,5 @@
-com/messagerie/model/User.class
 com/messagerie/service/ChannelService.class
+com/messagerie/model/User.class
 com/messagerie/dto/UserDTO.class
 com/messagerie/dto/MessageDTO.class
 com/messagerie/controller/MessageController.class
