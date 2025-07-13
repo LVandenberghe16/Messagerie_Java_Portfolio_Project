@@ -5,6 +5,7 @@ public class MessageDTO {
     private String content;
     private Long senderId;
     private Long channelId;
+    private String senderUsername;
 
     public MessageDTO() {}
 
@@ -31,5 +32,13 @@ public class MessageDTO {
 
     public void setChannelId(Long channelId) {
         this.channelId = channelId;
+    }
+
+    public String getsenderUsername() {
+        return senderUsername;
+    }
+
+    public void setenderUsername(String senderUsername) {
+        this.senderUsername = senderUsername;
     }
 }

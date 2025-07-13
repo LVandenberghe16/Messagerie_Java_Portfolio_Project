@@ -64,11 +64,13 @@ public class UserController {
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword()); // 🔒 Tu peux hasher ici si tu veux
         user = userRepository.save(user);
+        System.out.println("register");
         return UserDTO.fromEntity(user); // ✅ renvoie un UserDTO sécurisé
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody LoginDTO loginDTO) {
+        System.out.println("logged in");
         return userService.authenticate(loginDTO.getEmail(), loginDTO.getPassword())
                 .map(user -> ResponseEntity.ok(UserDTO.fromEntity(user)))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));

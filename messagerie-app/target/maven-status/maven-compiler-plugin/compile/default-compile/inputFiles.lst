@@ -9,6 +9,7 @@
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/controller/ChatController.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/service/UserServiceImpl.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/websocket/ChatWebSocketController.java
+/mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/model/DataInitializer.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/model/Message.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/dto/UserDTO.java
 /mnt/c/Users/33771/Documents/programmation/holderbton/Messagerie_Java_Portfolio_Project/messagerie-app/src/main/java/com/messagerie/repository/MessageRepository.java

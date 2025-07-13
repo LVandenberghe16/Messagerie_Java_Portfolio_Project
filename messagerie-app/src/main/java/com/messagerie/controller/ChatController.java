@@ -31,6 +31,7 @@ public class ChatController {
         Channel channel = channelRepository.findById(dto.getChannelId()).orElse(null);
 
         if (sender == null || channel == null) {
+            System.out.println("handleMessage reçu: senderId=" + dto.getSenderId() + ", channelId=" + dto.getChannelId());
             throw new IllegalArgumentException("Sender or Channel not found");
         }
 

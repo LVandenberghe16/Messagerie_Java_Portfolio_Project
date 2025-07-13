@@ -1,0 +1,142 @@
+/* Container chat global */
+.chat-page {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1e1e2f;
+  color: #ddd;
+}
+
+/* Sidebar des salons */
+.sidebar {
+  width: 280px;
+  background-color: #2f3136;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar h2 {
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+/* Formulaire création salon */
+#publicForm {
+  display: flex;
+  gap: 8px;
+}
+
+#publicForm input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+#publicForm button {
+  background-color: #5865f2;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 0 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#publicForm button:hover {
+  background-color: #4752c4;
+}
+
+/* Select salons */
+#channelSelect {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  background-color: #202225;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+/* Main chat */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #36393f;
+}
+
+/* Header avec bouton déconnexion */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #2f3136;
+  color: #fff;
+}
+
+#logoutBtn {
+  background-color: #f04747;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+#logoutBtn:hover {
+  background-color: #d73838;
+}
+
+/* Messages container */
+.message-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #36393f;
+  color: #ddd;
+}
+
+/* Formulaire envoi message */
+.send-form {
+  display: flex;
+  padding: 10px 20px;
+  border-top: 1px solid #23272a;
+  background-color: #2f3136;
+}
+
+.send-form input {
+  flex: 1; /* Important: input prend toute la place dispo */
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  margin-right: 10px;
+  background-color: #40444b;
+  color: #ddd;
+}
+
+.send-form button {
+  background-color: #5865f2;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 0 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.send-form button:hover {
+  background-color: #4752c4;
+}

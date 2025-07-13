@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscription</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="register-page">
+  <div class="register-container">
+    <h1>Créer un compte</h1>
+    <form id="registerForm">
+      <input type="text" id="username" placeholder="Nom d'utilisateur" required />
+      <input type="email" id="registerEmail" placeholder="Email" required />
+      <input type="password" id="registerPassword" placeholder="Mot de passe" required />
+      <button type="submit">S'inscrire</button>
+    </form>
+    <p>Déjà inscrit ? <a href="index.html">Se connecter</a></p>
+    <div id="registerError" class="error"></div>
+  </div>
+  <script src="register.js"></script>
+</body>
+</html>

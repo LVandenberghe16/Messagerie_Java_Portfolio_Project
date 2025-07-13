@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Messagerie</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="chat-page">
+
+  <aside class="sidebar">
+    <h2>Salons</h2>
+    <select id="channelSelect"></select>
+    <form id="publicForm">
+      <input type="text" id="publicChannelName" placeholder="Créer un salon public" required />
+      <button type="submit">+</button>
+    </form>
+    <button onclick="openPrivateModal()">Créer un salon privé</button>
+  </aside>
+
+  <main class="chat-main">
+    <header class="chat-header">
+      <p>Connecté en tant que : <strong id="userLabel"></strong></p>
+      <button id="logoutBtn">Déconnexion</button>
+    </header>
+
+    <section id="messages" class="message-container"></section>
+
+    <form id="sendForm" class="send-form">
+      <input type="text" id="msgInput" placeholder="Écris un message..." required autocomplete="off" />
+      <button type="submit">Envoyer</button>
+    </form>
+  </main>
+
+  <div id="privateModal" class="modal">
+    <div class="modal-content">
+      <h3>Créer une conversation privée</h3>
+      <input type="text" id="privateSearch" placeholder="Rechercher un utilisateur..." />
+      <div id="privateUserList"></div>
+      <button onclick="closePrivateModal()">Fermer</button>
+    </div>
+  </div>
+
+  <script src="channels.js"></script>
+  <script src="chat.js"></script>
+  <script src="privateModal.js"></script>
+  <script src="logout.js"></script>
+</body>
+</html>
