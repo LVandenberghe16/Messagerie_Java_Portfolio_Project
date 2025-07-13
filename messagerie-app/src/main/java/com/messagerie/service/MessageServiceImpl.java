@@ -1,11 +1,9 @@
 package com.messagerie.service;
 
-import com.messagerie.model.Message;
 import com.messagerie.model.Channel;
+import com.messagerie.model.Message;
 import com.messagerie.repository.MessageRepository;
-import com.messagerie.service.MessageService;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -20,6 +18,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message sendMessage(Message message) {
+        message.setTimestamp(java.time.LocalDateTime.now());
         return messageRepository.save(message);
     }
 

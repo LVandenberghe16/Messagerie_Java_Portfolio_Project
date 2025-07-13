@@ -1,9 +1,7 @@
 package com.messagerie.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import com.messagerie.model.Message;
 import com.messagerie.model.Channel;
-
+import com.messagerie.model.Message;
 import java.util.List;
 
 public interface MessageService {

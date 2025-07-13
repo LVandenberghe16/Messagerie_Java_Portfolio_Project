@@ -6,8 +6,8 @@ import com.messagerie.model.Channel;
 import com.messagerie.model.Message;
 import com.messagerie.model.User;
 import com.messagerie.repository.ChannelRepository;
+import com.messagerie.repository.MessageRepository;
 import com.messagerie.repository.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -24,22 +24,30 @@ public class ChatController {
     @Autowired
     private ChannelRepository channelRepository;
 
+    @Autowired
+    private MessageRepository messageRepository;
+
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
     public MessageResponseDTO handleMessage(MessageDTO dto) {
-        User sender = userRepository.findById(dto.getSenderId()).orElse(null);
-        Channel channel = channelRepository.findById(dto.getChannelId()).orElse(null);
+        User sender = userRepository.findById(dto.getSenderId())
+            .orElseThrow(() -> new IllegalArgumentException("Sender not found"));
+        Channel channel = channelRepository.findById(dto.getChannelId())
+            .orElseThrow(() -> new IllegalArgumentException("Channel not found"));
 
-        if (sender == null || channel == null) {
-            System.out.println("handleMessage reçu: senderId=" + dto.getSenderId() + ", channelId=" + dto.getChannelId());
-            throw new IllegalArgumentException("Sender or Channel not found");
-        }
-
-        Message message = new Message(dto.getContent(), sender, channel);
+        Message message = new Message();
+        message.setContent(dto.getContent());
+        message.setSender(sender);
+        message.setChannel(channel);
         message.setTimestamp(LocalDateTime.now());
 
-        // messageRepository.save(message); // si tu veux sauvegarder
+        messageRepository.save(message);
 
-        return new MessageResponseDTO(message.getContent(), sender.getUsername(), message.getTimestamp());
+        return new MessageResponseDTO(
+            message.getContent(),
+            sender.getUsername(),
+            channel.getId(),
+            message.getTimestamp()
+        );
     }
 }

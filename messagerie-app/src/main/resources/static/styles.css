@@ -107,15 +107,15 @@
 }
 
 /* Formulaire envoi message */
-.send-form {
+#sendForm {
   display: flex;
   padding: 10px 20px;
   border-top: 1px solid #23272a;
   background-color: #2f3136;
 }
 
-.send-form input {
-  flex: 1; /* Important: input prend toute la place dispo */
+#sendForm input {
+  flex: 1;
   padding: 10px;
   font-size: 1rem;
   border-radius: 4px;
@@ -126,7 +126,7 @@
   color: #ddd;
 }
 
-.send-form button {
+#sendForm button {
   background-color: #5865f2;
   border: none;
   color: white;
@@ -137,6 +137,6 @@
   transition: background-color 0.2s ease;
 }
 
-.send-form button:hover {
+#sendForm button:hover {
   background-color: #4752c4;
 }
