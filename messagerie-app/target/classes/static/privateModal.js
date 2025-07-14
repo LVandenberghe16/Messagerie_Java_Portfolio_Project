@@ -24,7 +24,9 @@ function displayPrivateUserList() {
 async function createPrivateWith(username2) {
   const username1 = currentUser.username;
   const msg = document.getElementById('privateCreateMsg');
-  const res = await fetch(`/channels/private/${username1}/${username2}`);
+  const res = await fetch(`/channels/private/${username1}/${username2}`, {
+    credentials: 'include'
+  });
   if (res.ok) {
     msg.textContent = "✅ Salon privé créé ou récupéré.";
     msg.style.color = 'green';

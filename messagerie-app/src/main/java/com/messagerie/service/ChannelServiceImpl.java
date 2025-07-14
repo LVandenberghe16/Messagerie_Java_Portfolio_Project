@@ -3,8 +3,6 @@ package com.messagerie.service;
 import com.messagerie.model.Channel;
 import com.messagerie.model.User;
 import com.messagerie.repository.ChannelRepository;
-import com.messagerie.service.ChannelService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,42 +11,37 @@ import java.util.Optional;
 @Service
 public class ChannelServiceImpl implements ChannelService {
 
-    private final ChannelRepository channelRepo;
+    // <-- Déclaration du repository
+    private final ChannelRepository channelRepository;
 
-    @Autowired
-    public ChannelServiceImpl(ChannelRepository channelRepo) {
-        this.channelRepo = channelRepo;
-    }
-
-    @Override
-    public Channel createChannel(Channel channel) {
-        return channelRepo.save(channel);
-    }
-
-    @Override
-    public Optional<Channel> getChannelById(Long id) {
-        return channelRepo.findById(id);
+    // <-- Injection via constructeur
+    public ChannelServiceImpl(ChannelRepository channelRepository) {
+        this.channelRepository = channelRepository;
     }
 
     @Override
     public List<Channel> getAllChannels() {
-        return channelRepo.findAll();
+        return channelRepository.findAll();
+    }
+
+    @Override
+    public Optional<Channel> getChannelById(Long id) {
+        return channelRepository.findById(id);
+    }
+
+    @Override
+    public Channel createChannel(Channel c) {
+        return channelRepository.save(c);
     }
 
     @Override
     public void deleteChannel(Long id) {
-        if (channelRepo.existsById(id)) {
-            channelRepo.deleteById(id);
-        } else {
-            throw new RuntimeException("No channel exists with id: " + id);
-        }
+        channelRepository.deleteById(id);
     }
 
+    // <-- Votre méthode manquante
     @Override
-    public Optional<Channel> getPrivateChannelBetweenUsers(User user1, User user2) {
-        return channelRepo.findAll().stream()
-            .filter(Channel::getIsPrivate)
-            .filter(channel -> channel.getMembers().contains(user1) && channel.getMembers().contains(user2))
-            .findFirst();
+    public Optional<Channel> getPrivateChannel(User u1, User u2) {
+        return channelRepository.findPrivateChannel(u1, u2);
     }
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/messages")
+@RequestMapping("/messages")
 public class MessageController {
 
     private final MessageService messageService;

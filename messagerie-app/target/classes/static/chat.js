@@ -43,7 +43,9 @@ function initChat(user, channelId) {
 
 // Chargement des messages existants
 function loadMessages(channelId) {
-    fetch(`/api/channels/${channelId}/messages`)
+    fetch(`/api/channels/${channelId}/messages`, {
+        credentials: 'include'
+      })
         .then(response => response.json())
         .then(messages => {
             messages.forEach(msg => {

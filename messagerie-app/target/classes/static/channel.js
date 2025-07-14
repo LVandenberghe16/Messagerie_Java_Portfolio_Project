@@ -6,7 +6,9 @@ let currentSubscription = null;
 
 async function loadChannels() {
   try {
-    const res = await fetch('/channels');
+    const res = await fetch('/channels', {
+      credentials: 'include'
+    });
     if (!res.ok) throw new Error('Erreur chargement salons');
     const channels = await res.json();
 
@@ -32,7 +34,9 @@ async function loadChannels() {
 
 async function loadPreviousMessages(channelId) {
   try {
-    const res = await fetch(`/messages/channel/${channelId}`);
+    const res = await fetch(`/messages/channel/${channelId}`, {
+      credentials: 'include'
+    });
     const messages = await res.json();
     const container = document.getElementById('messages');
     container.innerHTML = '';
@@ -87,6 +91,7 @@ document.getElementById('publicForm').addEventListener('submit', async e => {
 
   try {
     const res = await fetch('/channels', {
+      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, isPrivate: false })

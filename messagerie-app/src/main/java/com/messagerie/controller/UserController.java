@@ -11,11 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import jakarta.servlet.http.HttpSession;
+
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -74,5 +76,14 @@ public class UserController {
         return userService.authenticate(loginDTO.getEmail(), loginDTO.getPassword())
                 .map(user -> ResponseEntity.ok(UserDTO.fromEntity(user)))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> me(HttpSession session) {
+        Long id = (Long) session.getAttribute("userId");
+        if (id == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return userService.findById(id)
+                .map(u -> ResponseEntity.ok(UserDTO.fromEntity(u)))
+                .orElse(ResponseEntity.notFound().build());
     }
 }
