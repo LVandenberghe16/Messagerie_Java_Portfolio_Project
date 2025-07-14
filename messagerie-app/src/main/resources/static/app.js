@@ -1,10 +1,37 @@
-// app.js
-
 'use strict';
 
 let stompClient = null;
 let currentSubscription = null;
 let currentChannelId = null;
+
+// Exemple minimal de login-front
+/*
+async function doLogin(email, password) {
+  const res = await fetch('/users/login', {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+  if (!res.ok) throw new Error(`Login failed (${res.status})`);
+  const user = await res.json();
+  console.log('🔐 Logged in as', user.username);
+  // maintenant la session est en place côté serveur, on peut appeler /users/me
+  return loadCurrentUser();
+}*/
+
+// puis, par exemple au chargement de la page :
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await doLogin('mon@mail.com', 'monPassword'); 
+    // ou bien affichez un vrai formulaire de login
+    await loadChannels();
+    connectWebSocket();
+  } catch (e) {
+    console.error(e);
+    // afficher un message d’erreur de login / rediriger sur login.html, etc.
+  }
+});
 
 // 1) Récupère l’utilisateur connecté côté back
 async function loadCurrentUser() {
@@ -18,7 +45,8 @@ async function loadCurrentUser() {
     window.currentUser = user;
     document.getElementById('userLabel').textContent = user.username;
   } catch (err) {
-    console.error('loadCurrentUser error:', err);
+    console.warn('Utilisateur non authentifié, on affiche “Invité”');
+    document.getElementById('userLabel').textContent = 'Invité';
     // ex. redirection sur /login si 401
   }
 }
@@ -90,22 +118,33 @@ async function changeChannel(id) {
   }
 }
 
-// 5) Initialise la connexion STOMP over SockJS
-function initWebSocket() {
+// 5) Initialise la connexion STOMP over SockJS avec debug & reconnexion
+function connectWebSocket() {
+  console.log('→ connectWebSocket() called');
+  console.log('window.SockJS =', window.SockJS);
+  console.log('window.Stomp =', window.Stomp);
+
   const socket = new SockJS('/ws');
+  socket.onopen    = () => console.log('SockJS: connection OPEN');
+  socket.onclose   = () => console.log('SockJS: connection CLOSED');
+  socket.onerror   = e => console.error('SockJS ERROR', e);
+
   stompClient = Stomp.over(socket);
+  console.log('stompClient =', stompClient);
+  stompClient.debug = msg => console.log('[STOMP]', msg);
+
   stompClient.connect(
     {},
     frame => {
-      console.log('STOMP connecté:', frame);
+      console.log('STOMP CONNECTED frame=', frame);
       document.getElementById('sendForm').style.display = 'flex';
       if (currentChannelId) {
         changeChannel(currentChannelId);
       }
     },
-    err => {
-      console.error('WebSocket error:', err);
-      setTimeout(initWebSocket, 5000);
+    error => {
+      console.error('STOMP CONNECT ERROR:', error);
+      setTimeout(connectWebSocket, 5000);
     }
   );
 }
@@ -132,7 +171,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   await loadChannels();
 
   // 3.d) Démarre la WebSocket
-  initWebSocket();
+  connectWebSocket();
 
   // 3.e) Écoute le changement de salon
   document
