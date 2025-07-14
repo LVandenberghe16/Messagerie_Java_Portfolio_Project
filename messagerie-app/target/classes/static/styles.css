@@ -140,3 +140,95 @@
 #sendForm button:hover {
   background-color: #4752c4;
 }
+
+/* Fond sombre harmonisé */
+.login-page, .register-page {
+  min-height: 100vh;
+  background: #1e1e2f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container, .register-container {
+  background: #2f3136;
+  border-radius: 10px;
+  padding: 38px 32px 28px 32px;
+  box-shadow: 0 6px 32px 0 rgba(0,0,0,0.18);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 330px;
+  animation: fadeIn .7s;
+}
+@keyframes fadeIn { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:none;} }
+
+.login-container h1, .register-container h1 {
+  margin-bottom: 25px;
+  font-size: 2.1rem;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+.login-container form, .register-container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-bottom: 12px;
+}
+
+.login-container input, .register-container input {
+  padding: 13px 12px;
+  border-radius: 4px;
+  border: none;
+  background: #40444b;
+  color: #ddd;
+  font-size: 1rem;
+  margin-bottom: 0;
+  outline: none;
+  transition: background 0.25s;
+}
+.login-container input:focus, .register-container input:focus {
+  background: #484d53;
+}
+
+.login-container button, .register-container button {
+  background-color: #5865f2;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.05em;
+  margin-top: 6px;
+  transition: background .2s;
+}
+.login-container button:hover, .register-container button:hover {
+  background-color: #4752c4;
+}
+
+.login-container p, .register-container p {
+  color: #ddd;
+  margin-top: 8px;
+}
+
+.login-container a, .register-container a {
+  color: #7289da;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .2s;
+}
+.login-container a:hover, .register-container a:hover {
+  color: #fff;
+}
+
+.error {
+  color: #f04747;
+  text-align: center;
+  margin-top: 8px;
+  font-weight: 500;
+}
