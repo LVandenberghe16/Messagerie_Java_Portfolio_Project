@@ -33,23 +33,25 @@ public class ChatWebSocketController {
     }
 
     @MessageMapping("/chat.sendMessage")
-    public void sendMessage(Message incomingMessage) {
-        Optional<User> senderOpt = userService.findUserEntityById(incomingMessage.getSender().getId());
-        Optional<Channel> channelOpt = channelService.getChannelById(incomingMessage.getChannel().getId());
+    public void sendMessage(com.messagerie.dto.MessageDTO incoming) {
+        Optional<User> senderOpt = userService.findUserEntityById(incoming.getSenderId());
+        Optional<Channel> channelOpt = channelService.getChannelById(incoming.getChannelId());
 
         if (senderOpt.isEmpty() || channelOpt.isEmpty()) return;
 
         Message message = new Message();
-        message.setContent(incomingMessage.getContent());
+        message.setContent(incoming.getContent());
         message.setSender(senderOpt.get());
         message.setChannel(channelOpt.get());
         message.setTimestamp(LocalDateTime.now());
 
         Message savedMessage = messageService.sendMessage(message);
 
+        // Retourne un DTO vers le front ! (pas l'entité brute)
         messagingTemplate.convertAndSend(
             "/topic/channel/" + savedMessage.getChannel().getId(),
-            savedMessage
+            com.messagerie.dto.MessageDTO.fromEntity(savedMessage)
         );
     }
+
 }

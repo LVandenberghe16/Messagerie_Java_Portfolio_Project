@@ -18,7 +18,6 @@ com/messagerie/websocket/ChatWebSocketController.class
 com/messagerie/dto/ChannelDTO.class
 com/messagerie/model/DataInitializer.class
 com/messagerie/repository/MessageRepository.class
-com/messagerie/controller/ChatController.class
 com/messagerie/service/ChannelServiceImpl.class
 com/messagerie/service/MessageService.class
 com/messagerie/controller/ChannelController.class

@@ -1,4 +1,4 @@
-package com.messagerie.controller;
+/*package com.messagerie.controller;
 
 import com.messagerie.dto.MessageDTO;
 import com.messagerie.dto.MessageResponseDTO;
@@ -50,4 +50,4 @@ public class ChatController {
             message.getTimestamp()
         );
     }
-}
+}*/
