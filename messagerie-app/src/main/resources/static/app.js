@@ -5,7 +5,7 @@ let currentSubscription = null;
 let currentChannelId = null;
 
 // Exemple minimal de login-front
-/*
+
 async function doLogin(email, password) {
   const res = await fetch('/users/login', {
     method: 'POST',
@@ -18,7 +18,7 @@ async function doLogin(email, password) {
   console.log('🔐 Logged in as', user.username);
   // maintenant la session est en place côté serveur, on peut appeler /users/me
   return loadCurrentUser();
-}*/
+}
 
 // puis, par exemple au chargement de la page :
 document.addEventListener('DOMContentLoaded', async () => {

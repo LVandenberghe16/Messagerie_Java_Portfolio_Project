@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="
+           http://maven.apache.org/POM/4.0.0
+           http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.messagerie</groupId>
@@ -43,7 +45,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Lombok (corrigé) -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -57,7 +59,7 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!-- WebSocket -->
+        <!-- WebSocket / STOMP -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
@@ -89,7 +91,7 @@
 
     <build>
         <plugins>
-            <!-- Compiler plugin (important pour Java 17 + annotation processors) -->
+            <!-- Compiler plugin (Java 17 + annotation processors) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -107,10 +109,16 @@
                 </configuration>
             </plugin>
 
-            <!-- Spring Boot plugin -->
+            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- fork pour éviter le NPE "a is null" -->
+                    <fork>true</fork>
+                    <!-- Remplacez par votre classe Main exacte -->
+                    <mainClass>com.messagerie.MessagerieAppApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

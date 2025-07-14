@@ -71,10 +71,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<UserDTO> login(@RequestBody LoginDTO loginDTO, HttpSession session) {
         System.out.println("logged in");
         return userService.authenticate(loginDTO.getEmail(), loginDTO.getPassword())
-                .map(user -> ResponseEntity.ok(UserDTO.fromEntity(user)))
+                .map(user -> {
+                    // AJOUTE CA :
+                    session.setAttribute("userId", user.getId());  // ✅ très important !
+                    System.out.println("Session ouverte pour userId: " + user.getId());
+                    return ResponseEntity.ok(UserDTO.fromEntity(user));
+                })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
     }
 
